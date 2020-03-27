@@ -56,8 +56,10 @@ installbbrplus(){
 	kernel_version="4.14.129-bbrplus"
 	if [[ "${release}" == "centos" ]]; then
 		wget -N --no-check-certificate https://${github}/bbrplus/${release}/${version}/kernel-${kernel_version}.rpm
-		yum install -y kernel-${kernel_version}.rpm
-		rm -f kernel-${kernel_version}.rpm
+		wget -N --no-check-certificate https://${github}/bbrplus/${release}/${version}/kernel-headers-${kernel_version}.rpm
+		rpm -i kernel-${kernel_version}.rpm
+		rpm -i kernel-headers-${kernel_version}.rpm
+		rm -f kernel-${kernel_version}.rpm kernel-headers-${kernel_version}.rpm
 		kernel_version="4.14.129_bbrplus" #fix a bug
 	elif [[ "${release}" == "debian" || "${release}" == "ubuntu" ]]; then
 		mkdir bbrplus && cd bbrplus
